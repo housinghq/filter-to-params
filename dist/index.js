@@ -39,13 +39,19 @@ exports.default = function (fParams) {
 		delete filterParams.radius;
 	}
 
+	if (filterParams?.lat) {
+		filterParams.outer_radius =  filterParams.radius
+		 delete filterParams.radius
+		 delete filteredKeys.poly
+	}
+
 	//eslint-disable-next-line
 	for (var key in filteredKeys) {
 		//eslint-disable-next-line
 		if (filteredKeys.hasOwnProperty(key) && filteredKeys[key] !== null) {
 			if (key === "collection_ids") {
 				params[key] = filteredKeys[key].join(",");
-			} else if (key === "base") {
+			} else if (key === "base" && !filterParams?.lat ) {
 				params = _extends({}, params, getLocation(filteredKeys[key], filteredKeys));
 			} else if (key === "age") {
 				params = _extends({}, params, getAge(filteredKeys[key]));
@@ -58,7 +64,7 @@ exports.default = function (fParams) {
 			} else if (key === "property") {
 				params.property_type_id = filteredKeys[key];
 			} else if (key === "bathrooms") {
-				params.number_of_toilets = filteredKeys[key];
+				params.min_number_of_toilets = filteredKeys[key];
 			} else if (key === "builder_id") {
 				// only used in events
 				params.uuid = filteredKeys[key];
@@ -116,8 +122,8 @@ function getLocation(base, filteredKeys) {
 		});
 	}
 
-	if (!a.est.length) delete a.est;
-	if (!a.poly.length) delete a.poly;
+	if (!a.est.length || filterParams.lat) delete a.est;
+	if (!a.poly.length || filterParams.lat) delete a.poly;
 	if (!a.uuid.length) delete a.uuid;
 	if (!a.bldng.length) delete a.building;
 	if (!a.region_entity_id.length) delete a.region_entity_id;
