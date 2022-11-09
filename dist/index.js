@@ -44,7 +44,11 @@ exports.default = function (fParams) {
 		//eslint-disable-next-line
 		if (filteredKeys.hasOwnProperty(key) && filteredKeys[key] !== null) {
 			if (key === "collection_ids") {
-				params[key] = filteredKeys[key].join(",");
+				if (Array.isArray(filteredKeys[key])) {
+					params[key] = filteredKeys[key].join(",");
+				} else if (typeof filteredKeys[key] === 'number') {
+					params[key] = filteredKeys[key].toString();
+				}
 			} else if (key === "base") {
 				params = _extends({}, params, getLocation(filteredKeys[key], filteredKeys));
 			} else if (key === "age") {
