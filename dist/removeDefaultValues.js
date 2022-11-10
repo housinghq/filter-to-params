@@ -11,7 +11,7 @@ function isEmpty(obj) {
 	}
 
 	if (obj === 0) {
-		return false
+		return false;
 	}
 
 	if (Array.isArray(obj)) {
