@@ -4,7 +4,15 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+var _extends = Object.assign || function (target) {
+	for (var i = 1; i < arguments.length; i++) {
+		var source = arguments[i];for (var key in source) {
+			if (Object.prototype.hasOwnProperty.call(source, key)) {
+				target[key] = source[key];
+			}
+		}
+	}return target;
+};
 
 exports.default = function (fParams) {
 	var stringify = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
@@ -66,17 +74,13 @@ exports.default = function (fParams) {
 			} else if (key === "builder_id") {
 				// only used in events
 				params.uuid = filteredKeys[key];
-			} 
-			else if (key === "rera") {
+			} else if (key === "rera") {
 				params.is_rera_verified = filteredKeys[key];
-			}
-			else if (key === "image") {
+			} else if (key === "image") {
 				params.has_cover_image = filteredKeys[key];
-			}
-			else if (key === "property_details") {
-				filteredKeys[key].forEach(item => params[item] = true)
-			}
-			else if (key !== "ver") {
+			} else if (key === "property_details") {
+				filteredKeys[key].forEach(item => params[item] = true);
+			} else if (key !== "ver") {
 				params[key] = filteredKeys[key];
 			}
 		}
@@ -93,7 +97,9 @@ var _removeDefaultValues = require("./removeDefaultValues");
 
 var _removeDefaultValues2 = _interopRequireDefault(_removeDefaultValues);
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _interopRequireDefault(obj) {
+	return obj && obj.__esModule ? obj : { default: obj };
+}
 
 function getLocation(base, filteredKeys) {
 	var a = {
